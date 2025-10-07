@@ -1,8 +1,10 @@
+# Frontend folder
+frontend/
+
 # Documentation Files
 *.md
 !README.md
 !backend/README.md
-!frontend/estate-manager/README.md
 
 # Specific documentation files to ignore
 BACKEND_ACHIEVEMENTS.md
