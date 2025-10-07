@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-10-03T00:48:55.388Z",
+  "status": "valid",
+  "errors": [],
+  "warnings": [],
+  "summary": {
+    "totalEndpoints": 28,
+    "totalSchemas": 13,
+    "totalTags": 6
+  }
+}

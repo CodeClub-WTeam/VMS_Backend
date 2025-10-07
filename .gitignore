@@ -1,0 +1,97 @@
+# Documentation Files
+*.md
+!README.md
+!backend/README.md
+!frontend/estate-manager/README.md
+
+# Specific documentation files to ignore
+BACKEND_ACHIEVEMENTS.md
+BACKEND_API_DOCUMENTATION.md
+API_ENDPOINTS_COMPLETE.md
+UPDATED_DOCUMENTATION_SUMMARY.md
+MOBILE_APP_DEVELOPMENT_GUIDE.md
+FRONTEND_DEVELOPMENT_GUIDE.md
+VMS_SYSTEM_ARCHITECTURE.md
+FRONTEND_API_GUIDE.md
+FRONTEND_DEVELOPER_HANDOFF.md
+PROJECT_COMPLETE_SUMMARY.md
+IMPLEMENTATION_STATUS.md
+DEPLOY_NOW.md
+BACKEND_DEVELOPMENT_PLAN.md
+NEON_DATABASE_SETUP.md
+VERCEL_SETUP_COMPLETE.md
+VERCEL_DEPLOYMENT_GUIDE.md
+PHASE_5_COMPLETE.md
+SETUP_GUIDE.md
+
+# Backend documentation
+backend/SWAGGER_DOCUMENTATION_GUIDE.md
+backend/MIGRATION_FIX_GUIDE.md
+backend/INVITATION_SYSTEM_CHANGES.md
+backend/SETUP_PRISMA_STUDIO_NOW.md
+backend/ENV_CONFIGURATION_GUIDE.md
+backend/PRISMA_STUDIO_SETUP.md
+backend/DATABASE_MIGRATION_GUIDE.md
+
+# Word documents
+*.docx
+*.doc
+VMS*.docx
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Dependencies
+node_modules/
+bower_components/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Package manager
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
