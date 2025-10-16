@@ -297,6 +297,58 @@ const options = {
             },
           },
         },
+        Security: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              format: 'uuid',
+            },
+            estateId: {
+              type: 'string',
+              format: 'uuid',
+            },
+            firstName: {
+              type: 'string',
+              example: 'John',
+            },
+            lastName: {
+              type: 'string',
+              example: 'Guard',
+            },
+            email: {
+              type: 'string',
+              format: 'email',
+              example: 'security@example.com',
+            },
+            phone: {
+              type: 'string',
+              example: '+1234567890',
+            },
+            profilePicture: {
+              type: 'string',
+              example: 'https://example.com/avatar.jpg',
+            },
+            lastLogin: {
+              type: 'string',
+              format: 'date-time',
+              nullable: true,
+            },
+            lastPasswordChange: {
+              type: 'string',
+              format: 'date-time',
+              nullable: true,
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+        },
         EntryLog: {
           type: 'object',
           properties: {

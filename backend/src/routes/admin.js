@@ -610,37 +610,18 @@ router.put('/residents/:id', validateUpdateResident, adminController.updateResid
  */
 router.delete('/residents/:id', validateUUID, adminController.deleteResident);
 
-/**
- * @swagger
- * /admin/residents/{id}/reset-password:
- *   post:
- *     summary: Reset resident password
- *     tags: [Admin]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *           format: uuid
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               new_password:
- *                 type: string
- *                 example: "NewPassword123!"
- *     responses:
- *       200:
- *         description: Password reset successful
- *       404:
- *         description: Resident not found
- */
-router.post('/residents/:id/reset-password', validateResetPassword, adminController.resetResidentPassword);
+// REMOVED: Admin cannot reset resident passwords (security policy)
+// Residents must use self-service password change: POST /api/v1/codes/change-password
+// 
+// /**
+//  * @swagger
+//  * /admin/residents/{id}/reset-password:
+//  *   post:
+//  *     summary: Reset resident password (DISABLED)
+//  *     deprecated: true
+//  *     tags: [Admin]
+//  */
+// router.post('/residents/:id/reset-password', validateResetPassword, adminController.resetResidentPassword);
 
 // ==================== LOGS & REPORTS ====================
 

@@ -10,6 +10,10 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
+// Trust proxy - required for deployment on Vercel, Heroku, etc.
+// Trust only the first proxy (Vercel) for security
+app.set('trust proxy', 1);
+
 // Security middleware with relaxed CSP for Swagger UI
 app.use(helmet({
   contentSecurityPolicy: {

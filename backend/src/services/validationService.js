@@ -20,6 +20,7 @@ exports.validateAccessCode = async (code) => {
       result: 'denied',
       reason: 'Access code not found',
       reason_code: 'CODE_NOT_FOUND',
+      code,  // Include the attempted code
     };
   }
   
@@ -29,6 +30,7 @@ exports.validateAccessCode = async (code) => {
       result: 'denied',
       reason: 'Access code has been cancelled by resident',
       reason_code: 'CODE_CANCELLED',
+      code: accessCode.code,
       accessCodeId: accessCode.id,
       residentId: accessCode.residentId,
     };
@@ -41,6 +43,7 @@ exports.validateAccessCode = async (code) => {
       result: 'denied',
       reason: `Access code is valid for ${accessCode.visitDate}, not today`,
       reason_code: 'INVALID_DATE',
+      code: accessCode.code,
       accessCodeId: accessCode.id,
       residentId: accessCode.residentId,
     };
@@ -55,6 +58,7 @@ exports.validateAccessCode = async (code) => {
       result: 'denied',
       reason: `Access not yet active. Valid from ${accessCode.startTime}`,
       reason_code: 'TOO_EARLY',
+      code: accessCode.code,
       accessCodeId: accessCode.id,
       residentId: accessCode.residentId,
     };
@@ -65,6 +69,7 @@ exports.validateAccessCode = async (code) => {
       result: 'denied',
       reason: `Access code expired at ${accessCode.endTime}`,
       reason_code: 'CODE_EXPIRED',
+      code: accessCode.code,
       accessCodeId: accessCode.id,
       residentId: accessCode.residentId,
     };
@@ -76,6 +81,7 @@ exports.validateAccessCode = async (code) => {
       result: 'denied',
       reason: 'Access code has already been used',
       reason_code: 'CODE_ALREADY_USED',
+      code: accessCode.code,
       accessCodeId: accessCode.id,
       residentId: accessCode.residentId,
     };
@@ -89,7 +95,7 @@ exports.validateAccessCode = async (code) => {
       name: accessCode.visitorName,
     },
     resident_info: {
-      name: accessCode.resident.name,
+      name: `${accessCode.resident.firstName} ${accessCode.resident.lastName}`,
       home: {
         name: accessCode.resident.home.name,
         plot_number: accessCode.resident.home.plotNumber,
@@ -107,9 +113,15 @@ exports.validateAccessCode = async (code) => {
 };
 
 exports.logEntry = async (validationResult, securityId, gate = 'Main Gate') => {
+  // Ensure code is max 5 characters (database constraint)
+  let codeToLog = validationResult.code || 'N/A';
+  if (codeToLog.length > 5) {
+    codeToLog = codeToLog.substring(0, 5);  // Truncate to 5 chars
+  }
+  
   const logData = {
     accessCodeId: validationResult.accessCodeId || null,
-    code: validationResult.code || 'UNKNOWN',
+    code: codeToLog,
     residentId: validationResult.residentId || null,
     securityId,
     result: validationResult.result,

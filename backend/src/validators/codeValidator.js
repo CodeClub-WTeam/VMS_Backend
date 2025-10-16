@@ -52,3 +52,77 @@ exports.validateCodeGeneration = [
   handleValidationErrors,
 ];
 
+exports.validatePasswordChange = [
+  body('old_password')
+    .notEmpty()
+    .withMessage('Current password is required'),
+  body('new_password')
+    .notEmpty()
+    .withMessage('New password is required')
+    .isLength({ min: 8 })
+    .withMessage('Password must be at least 8 characters')
+    .matches(/[A-Z]/)
+    .withMessage('Password must contain at least one uppercase letter')
+    .matches(/[a-z]/)
+    .withMessage('Password must contain at least one lowercase letter')
+    .matches(/[0-9]/)
+    .withMessage('Password must contain at least one number')
+    .custom((value, { req }) => {
+      if (value === req.body.old_password) {
+        throw new Error('New password must be different from current password');
+      }
+      return true;
+    }),
+  handleValidationErrors,
+];
+
+exports.validateProfileUpdate = [
+  body('first_name')
+    .optional()
+    .trim()
+    .isLength({ min: 2, max: 100 })
+    .withMessage('First name must be between 2 and 100 characters'),
+  body('last_name')
+    .optional()
+    .trim()
+    .isLength({ min: 2, max: 100 })
+    .withMessage('Last name must be between 2 and 100 characters'),
+  body('phone')
+    .optional()
+    .matches(/^\+?[\d\s\-\(\)]+$/)
+    .withMessage('Invalid phone number format'),
+  body('profile_picture')
+    .optional()
+    .isURL()
+    .withMessage('Profile picture must be a valid URL'),
+  body('email')
+    .custom((value) => {
+      if (value !== undefined) {
+        throw new Error('Email cannot be changed');
+      }
+      return true;
+    }),
+  body('home_id')
+    .custom((value) => {
+      if (value !== undefined) {
+        throw new Error('Home cannot be changed by resident');
+      }
+      return true;
+    }),
+  body('role')
+    .custom((value) => {
+      if (value !== undefined) {
+        throw new Error('Role cannot be changed');
+      }
+      return true;
+    }),
+  body('status')
+    .custom((value) => {
+      if (value !== undefined) {
+        throw new Error('Status cannot be changed by resident');
+      }
+      return true;
+    }),
+  handleValidationErrors,
+];
+
