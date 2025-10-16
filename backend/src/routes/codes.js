@@ -163,29 +163,6 @@ router.get('/my-history', codeController.getMyHistory);
 
 /**
  * @swagger
- * /codes/{id}:
- *   delete:
- *     summary: Cancel access code
- *     tags: [Resident]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *           format: uuid
- *     responses:
- *       200:
- *         description: Code cancelled
- *       404:
- *         description: Code not found
- */
-router.delete('/:id', codeController.cancelCode);
-
-/**
- * @swagger
  * /codes/change-password:
  *   post:
  *     summary: Change own password
@@ -297,6 +274,29 @@ router.put('/profile', validateProfileUpdate, codeController.updateProfile);
  *         description: Complete code history with validation status
  */
 router.get('/all-history', codeController.getAllMyCodes);
+
+/**
+ * @swagger
+ * /codes/{id}:
+ *   delete:
+ *     summary: Cancel access code
+ *     tags: [Resident]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Code cancelled
+ *       404:
+ *         description: Code not found
+ */
+router.delete('/:id', codeController.cancelCode);
 
 module.exports = router;
 
