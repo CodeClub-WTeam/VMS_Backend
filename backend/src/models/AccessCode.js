@@ -60,6 +60,11 @@ module.exports = (sequelize) => {
         allowNull: true,
         field: 'cancelled_at',
       },
+      expiredAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        field: 'expired_at',
+      },
     },
     {
       tableName: 'access_codes',
@@ -84,6 +89,37 @@ module.exports = (sequelize) => {
       ],
     }
   );
+
+  // Instance method to calculate expiry timestamp
+  AccessCode.prototype.getExpiryTimestamp = function () {
+    // Combine visit_date and end_time to get expiry timestamp
+    return new Date(`${this.visitDate}T${this.endTime}`);
+  };
+
+  // Instance method to check if code should be expired
+  AccessCode.prototype.shouldBeExpired = function () {
+    const now = new Date();
+    const expiry = this.getExpiryTimestamp();
+    return now > expiry;
+  };
+
+  // Override toJSON to include calculated expiredAt
+  AccessCode.prototype.toJSON = function () {
+    const values = { ...this.get() };
+    
+    // Calculate expiredAt if not set
+    if (!values.expiredAt && values.visitDate && values.endTime) {
+      values.expiredAt = this.getExpiryTimestamp().toISOString();
+    }
+    
+    // Clean up - remove QR code data from list views (too large)
+    // It's still available if explicitly requested
+    if (values.qrCodeData && values.qrCodeData.length > 1000) {
+      // Keep it for now, can be removed in specific endpoints if needed
+    }
+    
+    return values;
+  };
 
   AccessCode.associate = (models) => {
     AccessCode.belongsTo(models.Resident, {

@@ -422,18 +422,24 @@ exports.getAllMyCodes = async (req, res, next) => {
       ],
     });
     
-    const codes = rows.map((code) => ({
-      id: code.id,
-      code: code.code,
-      visit_date: code.visitDate,
-      start_time: code.startTime,
-      end_time: code.endTime,
-      visitor_name: code.visitorName,
-      status: code.status,
-      created_at: code.createdAt,
-      validated_at: code.entryLogs?.[0]?.validatedAt || null,
-      validation_result: code.entryLogs?.[0]?.result || null,
-    }));
+    const codes = rows.map((code) => {
+      // Calculate expiry timestamp
+      const expiresAt = new Date(`${code.visitDate}T${code.endTime}`);
+      
+      return {
+        id: code.id,
+        code: code.code,
+        visit_date: code.visitDate,
+        start_time: code.startTime,
+        end_time: code.endTime,
+        visitor_name: code.visitorName,
+        status: code.status,
+        created_at: code.createdAt,
+        expires_at: expiresAt.toISOString(),
+        validated_at: code.entryLogs?.[0]?.validatedAt || null,
+        validation_result: code.entryLogs?.[0]?.result || null,
+      };
+    });
     
     console.log('Found', count, 'codes');
     console.log('=== REQUEST COMPLETED ===\n');

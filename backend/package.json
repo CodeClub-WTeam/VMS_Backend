@@ -13,6 +13,8 @@
     "data-migrate": "node src/scripts/data-migration.js",
     "fix-db": "node src/scripts/fix-database.js",
     "seed": "node src/scripts/seed.js",
+    "reset-passwords": "node src/scripts/resetPasswords.js",
+    "add-expired-column": "node src/scripts/add-expired-at-column.js",
     "validate-swagger": "node src/scripts/validate-swagger.js",
     "vercel-build": "node scripts/vercel-build.js",
     "deploy": "vercel --prod"
@@ -26,6 +28,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^6.16.3",
+    "@vercel/analytics": "^1.5.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
