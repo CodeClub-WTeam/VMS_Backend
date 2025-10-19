@@ -1,5 +1,5 @@
 const validationService = require('../services/validationService');
-const { EntryLog, Resident, Home } = require('../models');
+const { EntryLog, Resident, Home, AccessCode } = require('../models');
 
 // Validate access code
 exports.validateCode = async (req, res, next) => {
