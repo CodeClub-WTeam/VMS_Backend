@@ -146,6 +146,12 @@ exports.getRecentValidations = async (req, res, next) => {
             },
           ],
         },
+        {
+          model: AccessCode,
+          as: 'accessCode',
+          attributes: ['id', 'visitorName'],
+          required: false, // LEFT JOIN
+        },
       ],
     });
     
@@ -155,7 +161,7 @@ exports.getRecentValidations = async (req, res, next) => {
       id: log.id,
       code: log.code,
       result: log.result,
-      visitor_name: log.visitorName,
+      visitor_name: log.accessCode?.visitorName || 'Not provided',
       resident_name: log.resident 
         ? `${log.resident.firstName} ${log.resident.lastName}` 
         : 'Unknown',
